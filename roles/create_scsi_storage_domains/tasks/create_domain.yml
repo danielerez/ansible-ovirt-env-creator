@@ -1,0 +1,21 @@
+---
+
+- name: Get LUNs
+  ovirt_host_storage_facts:
+    auth: "{{ ovirt_auth }}"
+    host: "{{ host_name }}"
+    iscsi:
+      target: "{{ item.target }}"
+      address: "{{ item.address }}"
+
+- name: Create iSCSI Storage Domain
+  ovirt_storage_domains:
+    auth: "{{ ovirt_auth }}"
+    name: "{{ item.name }}"
+    host: "{{ host_name }}"
+    data_center: "{{ item.data_center }}"
+    iscsi:
+      address: "{{ item.address }}"
+      target: "{{ item.target }}"
+      lun_id: "{{ ovirt_host_storages | selectattr('logical_units') | map(attribute='id') | list }}"
+      override_luns: true

@@ -1,0 +1,13 @@
+---
+
+- name: Wait for engine API
+  get_url:
+      url: "{{ ovirt_auth.url }}"
+      url_username: "{{ ovirt_auth.username }}"
+      url_password: "{{ ovirt_auth.password }}"
+      dest: /tmp
+  retries: 10
+  delay: 3
+  register: result
+  until: result|succeeded
+  ignore_errors: yes

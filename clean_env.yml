@@ -1,0 +1,7 @@
+---
+
+- name: Clean oVirt environment
+  hosts: engine
+  roles:
+    - clean_storage
+    - clean_engine

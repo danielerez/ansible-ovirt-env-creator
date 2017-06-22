@@ -1,0 +1,32 @@
+---
+
+- name: Create NFS folders
+  file:
+    path: "{{ nfs_folder }}/{{ item.name }}"
+    state: directory
+    owner: vdsm
+    group: kvm
+    mode: 0755
+    recurse: yes
+  with_items:
+    - "{{ nfs_domains }}"
+
+- name: Configure nfs-server
+  include_role:
+    name: ANSI-RW.nfs
+  vars:
+    nfs_exports:
+      - "{{ nfs_folder }} *(rw,anonuid=36,anongid=36,all_squash)"
+
+- name: Get an active Host
+  ovirt_hosts_facts:
+    auth: "{{ ovirt_auth }}"
+    pattern: status = Up
+
+- name: Create NFS Storage Domains
+  include_tasks: create_domain.yml
+  with_items:
+    - "{{ nfs_domains }}"
+  vars:
+    host_name: "{{ ovirt_hosts[0].name }}"
+

@@ -1,0 +1,13 @@
+---
+
+nfs_domains:
+  - {
+      name: "data1",
+      address: "derezengine.usersys.redhat.com",
+      data_center: "Default"
+    }
+  - {
+      name: "data2",
+      address: "derezengine.usersys.redhat.com",
+      data_center: "Default"
+   }

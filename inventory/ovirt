@@ -1,0 +1,7 @@
+[engine]
+derezengine.usersys.redhat.com ansible_connection=ssh ansible_user=root
+
+[engine:vars]
+engine_username=admin@internal
+engine_port=8080
+

@@ -1,0 +1,6 @@
+---
+
+- name: Include oVirt password
+  no_log: true
+  include_vars: ovirt_password.yml
+

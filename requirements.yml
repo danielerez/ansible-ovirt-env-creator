@@ -1,0 +1,9 @@
+---
+# Install roles from the Ansible Galaxy
+- src: ANSI-RW.nfs
+- src: OndrejHome.targetcli
+
+# Install roles from github
+- src: https://github.com/OndrejHome/ansible.targetcli-modules
+  name: OndrejHome.targetcli-modules
+  version: master

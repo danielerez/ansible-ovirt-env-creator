@@ -1,0 +1,9 @@
+---
+
+ovirt_hosts:
+  - {
+      name: "host1",
+      address: "derezhost1.usersys",
+      password: "qum5net",
+      cluster: "Default"
+    }

@@ -1,0 +1,42 @@
+---
+
+- name: Install targetcli packages
+  yum: name=targetcli state=installed
+
+- name: Start and enable targetcli service
+  service: name=target enabled=yes state=started
+
+- name: Create LUNs folder
+  file:
+    path: "{{luns_folder}}"
+    state: directory
+    owner: vdsm
+    group: kvm
+    mode: 0755
+    recurse: yes
+
+- name: Define backstore objects
+  targetcli_backstore: backstore_type={{ item.1.type }} backstore_name={{ item.1.name }}
+                        options="{{ luns_folder }}/{{ item.1.name }} {{ item.1.size }}"
+                        attributes={{ item.1.attributes }}
+  with_subelements:
+    - "{{ iscsi_targets }}"
+    - disks
+  notify:
+    - save targetcli configuration
+
+- name: Create iSCSI targets
+  targetcli_iscsi: wwn={{ item.wwn }} attributes={{ item.attributes }}
+  with_items: "{{ iscsi_targets }}"
+  notify:
+    - save targetcli configuration
+
+- name: Assigning LUNs to targets
+  targetcli_iscsi_lun: wwn={{ item.0.wwn }} backstore_type={{ item.1.type }} backstore_name={{ item.1.name }}
+  with_subelements:
+    - "{{ iscsi_targets }}"
+    - disks
+  notify:
+    - save targetcli configuration
+
+- meta: flush_handlers

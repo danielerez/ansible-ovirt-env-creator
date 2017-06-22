@@ -1,0 +1,42 @@
+---
+
+- name: Stop engine
+  shell: killall -9 java
+  ignore_errors: True
+
+- name: Copy cleanup answer file
+  copy:
+    src: files/engine_cleanup_answer_file.conf
+    dest: '/tmp/engine_cleanup_answer_file.conf'
+    mode: 0700
+    owner: admin
+    group: admin
+
+- name: Add 'developerMode' to cleanup answer file
+  lineinfile:
+    path: '/tmp/engine_cleanup_answer_file.conf'
+    line: 'OVESETUP_CORE/developerMode=bool:True'
+
+- name: Engine Cleanup
+  shell: /home/admin/ovirt-engine/bin/engine-cleanup --config-append=/tmp/engine_cleanup_answer_file.conf
+  ignore_errors: True
+  become: true
+  become_user: admin
+
+- name: Copy setup answer file
+  copy:
+    src: files/engine_setup_answer_file.conf
+    dest: '/tmp/engine_setup_answer_file.conf'
+    mode: 0700
+    owner: admin
+    group: admin
+
+- name: Add 'developerMode' to setup answer file
+  lineinfile:
+    path: '/tmp/engine_setup_answer_file.conf'
+    line: 'OVESETUP_CORE/developerMode=bool:True'
+
+- name: Engine Setup
+  shell: /home/admin/ovirt-engine/bin/engine-setup --config=/tmp/engine_setup_answer_file.conf
+  become: true
+  become_user: admin

@@ -1,0 +1,15 @@
+---
+
+scsi_domains:
+ - {
+     name: "scsi1",
+     address: "derezengine.usersys.redhat.com",
+     target: "iqn.2017-01.com.chipchaderez:target0",
+     data_center: "Default"
+   }
+ - {
+     name: "scsi2",
+     address: "derezengine.usersys.redhat.com",
+     target: "iqn.2017-01.com.chipchaderez:target1",
+     data_center: "Default"
+  }

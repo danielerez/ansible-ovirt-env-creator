@@ -1,0 +1,16 @@
+---
+
+- name: Create NFS Storage Domain
+  ovirt_storage_domains:
+    auth: "{{ ovirt_auth }}"
+    name: "{{ item.name }}"
+    host: "{{ host_name }}"
+    data_center: "{{ item.data_center }}"
+    nfs:
+      address: "{{ item.address }}"
+      path: "{{ nfs_folder }}/{{ item.name }}"
+  retries: 3
+  delay: 2
+  register: result
+  until: result|succeeded
+  ignore_errors: yes

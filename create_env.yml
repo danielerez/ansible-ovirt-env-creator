@@ -1,0 +1,9 @@
+---
+
+- name: Setup oVirt environment
+  hosts: engine
+  roles:
+    - include_ovirt_password
+    - create_hosts
+    - create_scsi_storage_domains
+    - create_nfs_storage_domains

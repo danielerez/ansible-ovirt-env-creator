@@ -1,0 +1,44 @@
+---
+luns_folder: /home/data/luns
+
+iscsi_targets:
+  - {
+      wwn: "iqn.2017-01.com.chipchaderez:target0",
+      attributes: "authentication=0 demo_mode_write_protect=0 generate_node_acls=1 cache_dynamic_acls=1",
+      disks:
+          [
+            {
+              size: 10G,
+              name: target0_lun0,
+              type: fileio,
+              attributes: "emulate_tpu=1"
+            },
+            {
+              size: 10G,
+              name: target0_lun1,
+              type: fileio,
+              attributes: "emulate_tpu=1"
+            }
+          ]
+    }
+  - {
+      wwn: "iqn.2017-01.com.chipchaderez:target1",
+      attributes: "authentication=0 demo_mode_write_protect=0 generate_node_acls=1 cache_dynamic_acls=1",
+      disks:
+          [
+            {
+              size: 10G,
+              name: target1_lun0,
+              type: fileio,
+              attributes: "emulate_tpu=1"
+            },
+            {
+              size: 10G,
+              name: target1_lun1,
+              type: fileio,
+              attributes: "emulate_tpu=1"
+            }
+          ]
+    }
+
+

@@ -1,0 +1,7 @@
+ovirt_auth:
+      username: "{{ engine_username }}"
+      password: "{{ engine_password }}"
+      url: "http://{{ inventory_hostname }}:{{ engine_port }}/ovirt-engine/api"
+
+luns_folder: "/home/data/luns"
+nfs_folder: "/home/data/nfs"

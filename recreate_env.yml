@@ -1,0 +1,18 @@
+---
+
+- import_playbook: clean_env.yml
+
+- name: Start engine
+  hosts: engine
+  become: true
+  become_user: admin
+  tasks:
+    - shell: $HOME/ovirt-engine/share/ovirt-engine/services/ovirt-engine/ovirt-engine.py start &
+
+- name: Wait for engine api
+  hosts: engine
+  roles:
+    - include_ovirt_password
+    - wait_for_engine_api
+
+- import_playbook: create_env.yml

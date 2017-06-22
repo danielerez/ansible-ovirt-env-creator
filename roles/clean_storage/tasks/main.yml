@@ -1,0 +1,14 @@
+---
+
+- name: Clean NFS folders
+  file:
+    path: "{{nfs_folder}}/*"
+    state: absent
+
+- name: Clean LUNs folder
+  file:
+    path: "{{luns_folder}}/*"
+    state: absent
+
+- name: Clean targetcli config
+  shell: targetcli clearconfig True

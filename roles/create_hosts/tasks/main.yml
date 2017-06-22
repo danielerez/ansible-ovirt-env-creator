@@ -1,0 +1,12 @@
+---
+
+- name: Create Hosts
+  ovirt_hosts:
+    cluster: "{{ item.cluster }}"
+    name: "{{ item.name }}"
+    address: "{{ item.address }}"
+    password: "{{ item.password }}"
+    auth: "{{ ovirt_auth }}"
+  with_items:
+    - "{{ ovirt_hosts }}"
+
